@@ -2,30 +2,31 @@
     <div  class="navbar-container d-flex  content">
 
        <ul class="nav navbar-nav align-items-center  ml-auto"> 
-            <li class="nav-item d-none d-lg-block">
-            </li>  
-            <li class="nav-item d-none d-lg-block">
-            </li>  
-            <li class="nav-item d-none d-lg-block">
-            </li>  
 
-            <li class="nav-item dropdown dropdown-user">
-                <span class="user-name font-weight-bolder"><i class="mr-50" data-feather="user"></i>
-                    <span class="text-default mr-2">  
-                        
+            @foreach($menuItems as $item)
+                <li class="nav-item">
+                    <a href="{{ $item->url }}" class="nav-link {{ request()->is(ltrim($item->url, '/')) ? 'active' : '' }}">
+                        <i class="{{ $item->icon }}"></i>
+                        <span class="user-name font-weight-bolder">{{ $item->name }}</span>
+                    </a>
+                </li>
+            @endforeach
+
+                <li class="nav-item dropdown dropdown-user">
+                    <span class="user-name font-weight-bolder">
+                        <i class="mr-50" data-feather="user"></i>
+                        {{-- <span class="text-default mr-2">{{ Auth::user()->name ?? 'Utilisateur' }}</span> --}}
                     </span>
-                </span>
-            </li>
+                </li>
 
-            <li class="nav-item">
-                <a class=""  href="#" class="nav-link" 
-                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    <i class="fa fa-power-off"></i>
-                </a>
-                <form id="logout-form" action="#" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                    {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form> --}}
+                </li>
             
         </ul>
     </div>
